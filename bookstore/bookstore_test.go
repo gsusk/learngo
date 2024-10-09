@@ -71,8 +71,20 @@ func TestGetBook(t *testing.T) {
 	}
 	want := bookstore.Book{Title: "Spark Joy", ID: 2}
 	ID := 2
-	got := bookstore.GetBook(catalog, ID)
+	got, err := bookstore.GetBook(catalog, ID)
+	if err != nil {
+		t.Fatal(err)
+	}
 	if !cmp.Equal(want, got) {
 		t.Error(cmp.Diff(want, got))
+	}
+}
+
+func TestGetBookBadIDReturnsError(t *testing.T) {
+	t.Parallel()
+	catalog := map[int]bookstore.Book{}
+	_, err := bookstore.GetBook(catalog, 999)
+	if err == nil {
+		t.Fatal("want error for non-existent ID, got nil")
 	}
 }
