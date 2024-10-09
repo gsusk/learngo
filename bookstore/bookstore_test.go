@@ -3,6 +3,7 @@ package bookstore_test
 import (
 	"bookstore"
 	"fmt"
+	"sort"
 	"testing"
 
 	"github.com/google/go-cmp/cmp"
@@ -46,19 +47,23 @@ func TestBuyErrorsIfNoCopiesLeft(t *testing.T) {
 	}
 }
 
-func TestGetAllBook(t *testing.T) {
+func TestGetAllBooks(t *testing.T) {
 	t.Parallel()
-	catalog := []bookstore.Book{
-		{Title: "Spark Joy", Author: "Marie Kondo", Copies: 1},
-		{Title: "Niggastory", Author: "BLC", Copies: 4},
-		{Title: "Respify", Author: "yupi", Copies: 99},
+	catalog := map[int]bookstore.Book{
+		1: {Title: "Spark Joy", Author: "Marie Kondo", Copies: 1, ID: 1},
+		2: {Title: "Niggastory", Author: "BLC", Copies: 4, ID: 2},
+		3: {Title: "Respify", Author: "yupi", Copies: 99, ID: 3},
 	}
 	want := []bookstore.Book{
-		{Title: "Spark Joy", Author: "Marie Kondo", Copies: 1},
-		{Title: "Niggastory", Author: "BLC", Copies: 4},
-		{Title: "Respify", Author: "yupi", Copies: 99},
+		{Title: "Spark Joy", Author: "Marie Kondo", Copies: 1, ID: 1},
+		{Title: "Niggastory", Author: "BLC", Copies: 4, ID: 2},
+		{Title: "Respify", Author: "yupi", Copies: 99, ID: 3},
 	}
 	got := bookstore.GetAllBooks(catalog)
+
+	sort.Slice(got, func(i, j int) bool {
+		return got[i].ID < got[j].ID
+	})
 	if !cmp.Equal(want, got) {
 		t.Error(cmp.Diff(want, got))
 	}
