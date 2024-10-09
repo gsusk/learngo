@@ -4,6 +4,8 @@ import (
 	"bookstore"
 	"fmt"
 	"testing"
+
+	"github.com/google/go-cmp/cmp"
 )
 
 func TestBook(t *testing.T) {
@@ -41,5 +43,23 @@ func TestBuyErrorsIfNoCopiesLeft(t *testing.T) {
 	_, err := bookstore.Buy(book)
 	if err == nil {
 		t.Error("want error buying from zero copies, got nil")
+	}
+}
+
+func TestGetAllBook(t *testing.T) {
+	t.Parallel()
+	catalog := []bookstore.Book{
+		{Title: "Spark Joy", Author: "Marie Kondo", Copies: 1},
+		{Title: "Niggastory", Author: "BLC", Copies: 4},
+		{Title: "Respify", Author: "yupi", Copies: 99},
+	}
+	want := []bookstore.Book{
+		{Title: "Spark Joy", Author: "Marie Kondo", Copies: 1},
+		{Title: "Niggastory", Author: "BLC", Copies: 4},
+		{Title: "Respify", Author: "yupi", Copies: 99},
+	}
+	got := bookstore.GetAllBooks(catalog)
+	if !cmp.Equal(want, got) {
+		t.Error(cmp.Diff(want, got))
 	}
 }
