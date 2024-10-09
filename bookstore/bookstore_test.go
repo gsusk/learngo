@@ -65,9 +65,9 @@ func TestGetAllBook(t *testing.T) {
 }
 
 func TestGetBook(t *testing.T) {
-	catalog := []bookstore.Book{
-		{Title: "For the Love of Go", ID: 1},
-		{Title: "Spark Joy", ID: 2},
+	catalog := map[int]bookstore.Book{
+		1: {Title: "For the Love of Go", ID: 1},
+		2: {Title: "Spark Joy", ID: 2},
 	}
 	want := bookstore.Book{Title: "Spark Joy", ID: 2}
 	ID := 2
