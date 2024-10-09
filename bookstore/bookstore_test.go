@@ -49,7 +49,7 @@ func TestBuyErrorsIfNoCopiesLeft(t *testing.T) {
 
 func TestGetAllBooks(t *testing.T) {
 	t.Parallel()
-	catalog := map[int]bookstore.Book{
+	catalog := bookstore.Catalog{
 		1: {Title: "Spark Joy", Author: "Marie Kondo", Copies: 1, ID: 1},
 		2: {Title: "Niggastory", Author: "BLC", Copies: 4, ID: 2},
 		3: {Title: "Respify", Author: "yupi", Copies: 99, ID: 3},
@@ -59,7 +59,7 @@ func TestGetAllBooks(t *testing.T) {
 		{Title: "Niggastory", Author: "BLC", Copies: 4, ID: 2},
 		{Title: "Respify", Author: "yupi", Copies: 99, ID: 3},
 	}
-	got := bookstore.GetAllBooks(catalog)
+	got := catalog.GetAllBooks()
 
 	sort.Slice(got, func(i, j int) bool {
 		return got[i].ID < got[j].ID

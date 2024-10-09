@@ -18,20 +18,22 @@ func (b Book) NetPriceCents() float64 {
 	return b.PriceCents * (1 - (b.DiscountPercent / 100))
 }
 
+type Catalog map[int]Book
+
+func (c Catalog) GetAllBooks() []Book {
+	var data []Book
+	for _, book := range c {
+		data = append(data, book)
+	}
+	return data
+}
+
 func Buy(b Book) (Book, error) {
 	if b.Copies == 0 {
 		return Book{}, errors.New("No copies left.")
 	}
 	b.Copies -= 1
 	return b, nil
-}
-
-func GetAllBooks(c map[int]Book) []Book {
-	var data []Book
-	for _, book := range c {
-		data = append(data, book)
-	}
-	return data
 }
 
 func GetBook(catalog map[int]Book, bookID int) (Book, error) {
