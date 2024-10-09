@@ -63,3 +63,16 @@ func TestGetAllBook(t *testing.T) {
 		t.Error(cmp.Diff(want, got))
 	}
 }
+
+func TestGetBook(t *testing.T) {
+	catalog := []bookstore.Book{
+		{Title: "For the Love of Go", ID: 1},
+		{Title: "Spark Joy", ID: 2},
+	}
+	want := bookstore.Book{Title: "Spark Joy", ID: 2}
+	ID := 2
+	got := bookstore.GetBook(catalog, ID)
+	if !cmp.Equal(want, got) {
+		t.Error(cmp.Diff(want, got))
+	}
+}
