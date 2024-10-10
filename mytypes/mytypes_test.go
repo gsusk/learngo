@@ -61,6 +61,7 @@ func TestMyBuilder(t *testing.T) {
 
 func TestMyBuilderLen(t *testing.T) {
 	t.Parallel()
+
 	var mb mytypes.MyBuilder
 	want := "Hello, Gophers!"
 	got := mb.Hello()
