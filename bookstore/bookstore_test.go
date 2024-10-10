@@ -169,7 +169,6 @@ func TestInvalidSetC(t *testing.T) {
 		t.Fatal(err)
 	}
 	got := b.Category()
-
 	if want != got {
 		t.Errorf("want category %q, got %q", want, got)
 	}
