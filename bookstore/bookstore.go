@@ -20,6 +20,14 @@ func (b Book) NetPriceCents() float64 {
 
 type Catalog map[int]Book
 
+func (c Catalog) GetBook(id int) (Book, error) {
+	book, ok := c[id]
+	if !ok {
+		return Book{}, fmt.Errorf("Book not found, ID: %d", id)
+	}
+	return book, nil
+}
+
 func (c Catalog) GetAllBooks() []Book {
 	var data []Book
 	for _, book := range c {

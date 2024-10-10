@@ -70,13 +70,13 @@ func TestGetAllBooks(t *testing.T) {
 }
 
 func TestGetBook(t *testing.T) {
-	catalog := map[int]bookstore.Book{
+	catalog := bookstore.Catalog{
 		1: {Title: "For the Love of Go", ID: 1},
 		2: {Title: "Spark Joy", ID: 2},
 	}
 	want := bookstore.Book{Title: "Spark Joy", ID: 2}
 	ID := 2
-	got, err := bookstore.GetBook(catalog, ID)
+	got, err := catalog.GetBook(ID)
 	if err != nil {
 		t.Fatal(err)
 	}
