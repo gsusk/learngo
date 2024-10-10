@@ -66,7 +66,7 @@ func (b *Book) SetPriceCents(p int) error {
 }
 
 func (b *Book) SetCategory(cat string) error {
-	if cat != "Autobriography" {
+	if cat != "Autobiography" {
 		return fmt.Errorf("unknown category %q", cat)
 	}
 	b.category = cat
