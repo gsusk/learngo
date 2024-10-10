@@ -90,3 +90,25 @@ func TestDivide(t *testing.T) {
 		}
 	}
 }
+
+func TestSqrt(t *testing.T) {
+	t.Parallel()
+	type testCase struct {
+		a    float64
+		want float64
+	}
+	testCases := []testCase{
+		{a: 4, want: 2},
+		{a: 16, want: 4},
+		//{a: -1, want: 0},
+	}
+	for _, tc := range testCases {
+		got, err := calculator.Sqrt(tc.a)
+		if err != nil {
+			t.Errorf("want no error for valid input, got %v", err)
+		}
+		if tc.want != got {
+			t.Errorf("want %f, got %f", tc.want, got)
+		}
+	}
+}
