@@ -61,11 +61,31 @@ func TestMyBuilder(t *testing.T) {
 
 func TestMyBuilderLen(t *testing.T) {
 	t.Parallel()
-
 	var mb mytypes.MyBuilder
 	want := "Hello, Gophers!"
 	got := mb.Hello()
 	if want != got {
 		t.Errorf("want %q, got %q", want, got)
+	}
+}
+
+func TestStringUppercaser(t *testing.T) {
+	t.Parallel()
+	var su mytypes.StringUppercaser
+	su.Contents.WriteString("Hello, Gophers!")
+	var want = "HELLO, GOPHERS!"
+	got := su.ToUpper()
+	if want != got {
+		t.Errorf("want: %q, got: %q", want, got)
+	}
+}
+
+func TestDouble(t *testing.T) {
+	t.Parallel()
+	var x mytypes.MyInt = 12
+	want := mytypes.MyInt(24)
+	x.Double()
+	if want != x {
+		t.Errorf("want %d, got %d", want, x)
 	}
 }

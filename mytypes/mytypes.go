@@ -1,6 +1,8 @@
 package mytypes
 
-import "strings"
+import (
+	"strings"
+)
 
 type MyInt int
 type MyString string
@@ -18,4 +20,20 @@ func (i MyString) Len() int {
 
 func (i MyBuilder) Hello() string {
 	return "Hello, Gophers!"
+}
+
+type StringUppercaser struct {
+	Contents strings.Builder
+}
+
+func (t StringUppercaser) ToUpper() string {
+	return strings.ToUpper(t.Contents.String())
+}
+
+func Double(x *int) {
+	*x *= 2
+}
+
+func (n *MyInt) Double() {
+	*n *= 2
 }
