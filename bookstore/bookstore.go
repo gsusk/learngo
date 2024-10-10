@@ -12,6 +12,7 @@ type Book struct {
 	ID              int
 	PriceCents      float64
 	DiscountPercent float64
+	category        string
 }
 
 func (b Book) NetPriceCents() float64 {
@@ -54,4 +55,24 @@ func GetBook(catalog map[int]Book, bookID int) (Book, error) {
 
 func NetPriceCents(b Book) float64 {
 	return b.PriceCents * (1 - (b.DiscountPercent / 100))
+}
+
+func (b *Book) SetPriceCents(p int) error {
+	if p < 0 {
+		return fmt.Errorf("Invalid Price : %d", p)
+	}
+	b.PriceCents = float64(p)
+	return nil
+}
+
+func (b *Book) SetCategory(cat string) error {
+	if cat != "Autobriography" {
+		return fmt.Errorf("unknown category %q", cat)
+	}
+	b.category = cat
+	return nil
+}
+
+func (b Book) Category() string {
+	return b.category
 }
