@@ -2,7 +2,9 @@ package bookstore_test
 
 import (
 	"bookstore"
+	"bytes"
 	"fmt"
+	"os"
 	"sort"
 	"testing"
 
@@ -177,5 +179,21 @@ func TestSetCategoryInvalid(t *testing.T) {
 	err := b.SetCategory(999)
 	if err == nil {
 		t.Fatal(err)
+	}
+}
+
+func TestGreet(t *testing.T) {
+	t.Parallel()
+	r, w, _ := os.Pipe()
+	stdoutog := os.Stdout
+	os.Stdout = w
+	bookstore.Greet("Bob")
+	w.Close()
+	os.Stdout = stdoutog
+	var buf bytes.Buffer
+	buf.ReadFrom(r)
+	want := fmt.Sprintf("whats up %q", "Bob")
+	if got := buf.String(); want != got {
+		t.Errorf("wanted %q, got %q", want, got)
 	}
 }

@@ -81,7 +81,7 @@ func (b *Book) SetPriceCents(p int) error {
 
 func (b *Book) SetCategory(cat Category) error {
 	if !validCategory[cat] {
-		return fmt.Errorf("unknown category %q", cat)
+		return fmt.Errorf("unknown category %v", cat)
 	}
 	b.category = cat
 	return nil
@@ -89,4 +89,15 @@ func (b *Book) SetCategory(cat Category) error {
 
 func (b Book) Category() Category {
 	return b.category
+}
+
+func Greet(name string) {
+	switch name {
+	case "Alice":
+		fmt.Printf("Hello %q", name)
+	case "Bob":
+		fmt.Printf("whats up %q", name)
+	default:
+		fmt.Printf("hello stranger: %q", name)
+	}
 }
