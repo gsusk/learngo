@@ -151,25 +151,31 @@ func TestSetCategory(t *testing.T) {
 		Title:      "For the Love of Go",
 		PriceCents: 4000,
 	}
-	err := b.SetCategory("Drama")
-	if err == nil {
-		t.Fatal("want error for invalid category, got nil")
+	cats := []bookstore.Category{
+		bookstore.CategoryAutobiography,
+		bookstore.CategoryLargePrintRomance,
+		bookstore.CategoryParticlePhysics,
+	}
+	for _, cat := range cats {
+		err := b.SetCategory(cat)
+		if err != nil {
+			t.Fatal(err)
+		}
+		got := b.Category()
+		if cat != got {
+			t.Errorf("want category %d, got %q", cat, got)
+		}
 	}
 }
 
-func TestInvalidSetC(t *testing.T) {
+func TestSetCategoryInvalid(t *testing.T) {
 	t.Parallel()
 	b := bookstore.Book{
 		Title:      "For the Love of Go",
 		PriceCents: 4000,
 	}
-	want := "Autobiography"
-	err := b.SetCategory(want)
-	if err != nil {
+	err := b.SetCategory(999)
+	if err == nil {
 		t.Fatal(err)
-	}
-	got := b.Category()
-	if want != got {
-		t.Errorf("want category %q, got %q", want, got)
 	}
 }
